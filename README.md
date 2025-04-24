@@ -18,3 +18,21 @@ Diseñar y desarrollar un Data Loader capaz de alimentar modelos de IA generativ
 * `src/`: Código fuente del Data Loader.
 * `notebooks/`: Notebooks de Jupyter para pruebas, visualización y ejemplos.
 * `requirements.txt`: Dependencias del proyecto.
+
+## Dataset Utilizado
+
+Este proyecto utilizará el dataset **20 Newsgroups**. Este es un corpus clásico en NLP, comúnmente usado para tareas de clasificación de texto y clustering.
+
+* **Fuente/Acceso:** Librería Scikit-learn (función `fetch_20newsgroups`).
+* **Tamaño:** Aproximadamente 18,000 documentos de texto.
+* **Número de Clases:** 20 grupos de noticias.
+* **Descripción:** Incluye artículos sobre una variedad de temas, desde deportes hasta tecnología y política.
+
+### Detalles del Dataset
+
+* **Nombre del Dataset:** 20 Newsgroups
+* **Fuente:** [Scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_20newsgroups.html)
+* **Enlace (Documentación):** [https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_20newsgroups.html](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_20newsgroups.html)
+* **Descripción:** Consiste en aproximadamente 18,000 posts provenientes de 20 grupos de noticias distintos, cubriendo una variedad de temas. Para este proyecto, se cargan utilizando `fetch_20newsgroups`, removiendo encabezados, pies de página y citas para obtener el texto más limpio posible.
+* **Exploración Inicial:** La carga inicial y la iteración secuencial sobre los documentos se encuentran en el notebook `notebooks/01_test_basic_reading.ipynb`.
+
