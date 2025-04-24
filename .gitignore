@@ -8,6 +8,7 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+*.pkz
 .Python
 build/
 develop-eggs/
