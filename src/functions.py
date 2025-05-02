@@ -1,4 +1,5 @@
 import unicodedata
+from nltk.corpus import wordnet
 
 def batch_generator(data_list, batch_size):
     """
@@ -36,3 +37,17 @@ def preprocess_text_step1(text):
     except Exception as e:
         print(f"Error: {e}")
         return ""
+
+# Mapeo de etiquetas POS
+def get_wordnet_pos(treebank_tag):
+    """Convierte etiquetas POS de Penn Treebank a formato WordNet."""
+    if treebank_tag.startswith('J'):
+        return wordnet.ADJ
+    elif treebank_tag.startswith('V'):
+        return wordnet.VERB
+    elif treebank_tag.startswith('N'):
+        return wordnet.NOUN
+    elif treebank_tag.startswith('R'):
+        return wordnet.ADV
+    else:
+        return wordnet.NOUN
