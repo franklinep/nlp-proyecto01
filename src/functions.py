@@ -1,4 +1,5 @@
 import unicodedata
+import nltk
 from nltk.corpus import wordnet
 
 def batch_generator(data_list, batch_size):
@@ -51,3 +52,45 @@ def get_wordnet_pos(treebank_tag):
         return wordnet.ADV
     else:
         return wordnet.NOUN
+
+############### --- Lematización --- ###############
+global lemmatizer
+lemmatizer = nltk.WordNetLemmatizer()
+def lemmatize_sentence_nltk(sentence_text):
+    """Tokeniza, etiqueta POS y lematiza una única oración (string)."""
+    tokens = nltk.word_tokenize(sentence_text, language='english')
+    pos_tags = nltk.pos_tag(tokens)
+    lemmas = []
+    for word, tag in pos_tags:
+        if word.isalnum():
+            wordnet_tag = get_wordnet_pos(tag)
+            lemma = lemmatizer.lemmatize(word, pos=wordnet_tag)
+            lemmas.append(lemma)
+    return lemmas
+
+# función principal que orquesta el pipeline para 1 documento
+def segment_and_process_document(doc_text):
+    """
+    Normaliza, segmenta en oraciones y lematiza cada oración de un documento.
+
+    Args:
+        doc_text (str): Texto crudo del documento.
+
+    Returns:
+        list[list[str]]: Lista de oraciones, donde cada oración es una lista de lemas.
+    """
+    # normalizamos los documentos previamente a la segmentación
+    normalized_doc = preprocess_text_step1(doc_text)
+
+    # usamos el segmentor de oraciones de nltk para dividir el texto en oraciones
+    sentences = nltk.sent_tokenize(normalized_doc, language='english')
+
+    # lematizamos cada oración y la agregamos a una lista
+    processed_doc = []
+    for sentence in sentences:
+        lemmatized_sentence = lemmatize_sentence_nltk(sentence)
+        # nos aseguramos de no agregar  listas vacías si una oración solo contenía puntuación
+        if lemmatized_sentence:
+            processed_doc.append(lemmatized_sentence)
+
+    return processed_doc
